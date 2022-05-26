@@ -1,0 +1,102 @@
+version: "3.8"
+
+services:
+
+  redis-cluster-0:
+    container_name: redis-cluster-0
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - ./redis/redis-cluster-0/redis.conf:/etc/usr/local/redis.conf
+      - ./redis/redis-cluster-0/data:/data
+    ports:
+      - "6380:6380"
+    networks:
+      redis-cluster:
+    command:
+      - "redis-server /etc/usr/local/redis.conf"
+  redis-cluster-1:
+    container_name: redis-cluster-1
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - ./redis/redis-cluster-1/redis.conf:/etc/usr/local/redis.conf
+      - ./redis/redis-cluster-1/data:/data
+    ports:
+      - "6381:6381"
+    command:
+      - "redis-server /etc/usr/local/redis.conf"
+    networks:
+      redis-cluster:
+
+  redis-cluster-2:
+    container_name: redis-cluster-2
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - ./redis/redis-cluster-2/redis.conf:/etc/usr/local/redis.conf
+      - ./redis/redis-cluster-2/data:/data
+    ports:
+      - "6382:6382"
+    command:
+      - "redis-server /etc/usr/local/redis.conf"
+    networks:
+      redis-cluster:
+
+  redis-cluster-3:
+    container_name: redis-cluster-3
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - ./redis/redis-cluster-3/redis.conf:/etc/usr/local/redis.conf
+      - ./redis/redis-cluster-3/data:/data
+    ports:
+      - "6383:6383"
+    command:
+      - "redis-server /etc/usr/local/redis.conf"
+    networks:
+      redis-cluster:
+
+  redis-cluster-4:
+    container_name: redis-cluster-4
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - ./redis/redis-cluster-4/redis.conf:/etc/usr/local/redis.conf
+      - ./redis/redis-cluster-4/data:/data
+    ports:
+      - "6384:6384"
+    command:
+      - "redis-server /etc/usr/local/redis.conf"
+    networks:
+      redis-cluster:
+
+  redis-cluster-5:
+    container_name: redis-cluster-5
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - ./redis/redis-cluster-5/redis.conf:/etc/usr/local/redis.conf
+      - ./redis/redis-cluster-5/data:/data
+    ports:
+      - "6385:6385"
+    command:
+      - "redis-server /etc/usr/local/redis.conf"
+      - "redis-cli --cluster  create -a Szzf@2022 127.0.0.1:6380 127.0.0.1:6381 127.0.0.1:6382 127.0.0.1:6383 127.0.0.1:6384 127.0.0.1:6385 --cluster-replicas 1"
+    depends_on:
+      - redis-cluster-0
+      - redis-cluster-1
+      - redis-cluster-2
+      - redis-cluster-3
+      - redis-cluster-4
+    networks:
+      redis-cluster:
+
+networks:
+  redis-cluster:
+    driver: bridge
+
+volumes:
+  etcd_data:
+    driver: local
+
