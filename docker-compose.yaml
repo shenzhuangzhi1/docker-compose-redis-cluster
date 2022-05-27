@@ -13,8 +13,7 @@ services:
       - "6380:6380"
     networks:
       redis-cluster:
-    command:
-      - "redis-server /etc/usr/local/redis.conf"
+    command: "redis-server /etc/usr/local/redis.conf"
   redis-cluster-1:
     container_name: redis-cluster-1
     image: redis:7-alpine
@@ -24,8 +23,7 @@ services:
       - ./redis/redis-cluster-1/data:/data
     ports:
       - "6381:6381"
-    command:
-      - "redis-server /etc/usr/local/redis.conf"
+    command: "redis-server /etc/usr/local/redis.conf"
     networks:
       redis-cluster:
 
@@ -38,8 +36,7 @@ services:
       - ./redis/redis-cluster-2/data:/data
     ports:
       - "6382:6382"
-    command:
-      - "redis-server /etc/usr/local/redis.conf"
+    command: "redis-server /etc/usr/local/redis.conf"
     networks:
       redis-cluster:
 
@@ -52,8 +49,7 @@ services:
       - ./redis/redis-cluster-3/data:/data
     ports:
       - "6383:6383"
-    command:
-      - "redis-server /etc/usr/local/redis.conf"
+    command: "redis-server /etc/usr/local/redis.conf"
     networks:
       redis-cluster:
 
@@ -66,8 +62,7 @@ services:
       - ./redis/redis-cluster-4/data:/data
     ports:
       - "6384:6384"
-    command:
-      - "redis-server /etc/usr/local/redis.conf"
+    command: "redis-server /etc/usr/local/redis.conf"
     networks:
       redis-cluster:
 
@@ -80,9 +75,7 @@ services:
       - ./redis/redis-cluster-5/data:/data
     ports:
       - "6385:6385"
-    command:
-      - "redis-server /etc/usr/local/redis.conf"
-      - "redis-cli --cluster  create -a Szzf@2022 127.0.0.1:6380 127.0.0.1:6381 127.0.0.1:6382 127.0.0.1:6383 127.0.0.1:6384 127.0.0.1:6385 --cluster-replicas 1"
+    command: "redis-server /etc/usr/local/redis.conf"
     depends_on:
       - redis-cluster-0
       - redis-cluster-1
@@ -95,8 +88,4 @@ services:
 networks:
   redis-cluster:
     driver: bridge
-
-volumes:
-  etcd_data:
-    driver: local
 
