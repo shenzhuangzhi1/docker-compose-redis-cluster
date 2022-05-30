@@ -14,6 +14,7 @@ services:
     networks:
       redis-cluster:
     command: "redis-server /etc/usr/local/redis.conf"
+
   redis-cluster-1:
     container_name: redis-cluster-1
     image: redis:5.0.8
@@ -24,6 +25,8 @@ services:
     ports:
       - "6381:6381"
     command: "redis-server /etc/usr/local/redis.conf"
+    depends_on:
+      - redis-cluster-0
     networks:
       redis-cluster:
 
@@ -37,6 +40,8 @@ services:
     ports:
       - "6382:6382"
     command: "redis-server /etc/usr/local/redis.conf"
+    depends_on:
+      - redis-cluster-1
     networks:
       redis-cluster:
 
@@ -50,6 +55,8 @@ services:
     ports:
       - "6383:6383"
     command: "redis-server /etc/usr/local/redis.conf"
+    depends_on:
+      - redis-cluster-2
     networks:
       redis-cluster:
 
@@ -63,8 +70,11 @@ services:
     ports:
       - "6384:6384"
     command: "redis-server /etc/usr/local/redis.conf"
+    depends_on:
+      - redis-cluster-3
     networks:
       redis-cluster:
+
   redis-cluster-5:
     container_name: redis-cluster-5
     image: redis:5.0.8
@@ -76,10 +86,6 @@ services:
       - "6385:6385"
     command: "redis-server /etc/usr/local/redis.conf"
     depends_on:
-      - redis-cluster-0
-      - redis-cluster-1
-      - redis-cluster-2
-      - redis-cluster-3
       - redis-cluster-4
     networks:
       redis-cluster:
